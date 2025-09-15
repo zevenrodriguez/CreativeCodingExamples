@@ -49,7 +49,7 @@ public class MovePlayer : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Floor")
+        if (col.gameObject.tag == "Floor")
         {
             // Debug.Log("Grounded");
             // anim.SetBool("isGrounded", true);
@@ -58,7 +58,7 @@ public class MovePlayer : MonoBehaviour
     }
     void OnCollisionExit(Collision col)
     {
-        if (col.gameObject.name == "Floor")
+        if (col.gameObject.tag == "Floor")
         {
             // Debug.Log("Not Grounded");
             // anim.SetBool("isGrounded", false);
