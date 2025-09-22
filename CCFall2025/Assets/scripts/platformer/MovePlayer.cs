@@ -1,0 +1,73 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+public class MovePlayer : MonoBehaviour
+{
+    InputAction moveAction;
+    InputAction jumpAction;
+
+    bool jump = false;
+    //[SerializeField] Rigidbody rb;
+    Rigidbody rb;
+
+    [SerializeField] float forceAmount = 150.0f;
+
+    bool canJump = false;
+
+    //[SerializeField] Transform cam;
+    [SerializeField] float speed = 2.0f;
+
+    void Start()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+        jumpAction = InputSystem.actions.FindAction("Jump");
+        rb = GetComponent<Rigidbody>();
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        //Debug.Log("moveValue " + moveValue);
+        float posX = transform.position.x + (moveValue.x * (Time.deltaTime * speed));
+        transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+        //cam.position = new Vector3(posX, cam.position.y, cam.position.z);
+        if (jumpAction.IsPressed() == true && canJump == true)
+        {
+            Debug.Log("Jumping");
+            jump = true;
+        }
+
+        if (transform.position.y < -12)
+        {
+            transform.position = new Vector3(0.0f, 10.0f, 0.0f);
+            //after x amount of times game over
+            //game over
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (jump == true)
+        {
+            jump = false;
+            rb.AddForce((forceAmount * transform.up), ForceMode.Force);
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        Debug.Log(col.gameObject.tag);
+        if (col.gameObject.tag == "Floor") {
+            canJump = true;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        Debug.Log(col.gameObject.tag);
+        if (col.gameObject.tag == "Floor") {
+            canJump = false;
+        }
+    }
+}
