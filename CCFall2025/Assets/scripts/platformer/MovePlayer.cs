@@ -16,6 +16,9 @@ public class MovePlayer : MonoBehaviour
     //[SerializeField] Transform cam;
     [SerializeField] float speed = 2.0f;
 
+    [SerializeField] Animator anim;
+    [SerializeField] SpriteRenderer bunny;
+
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -32,10 +35,30 @@ public class MovePlayer : MonoBehaviour
         float posX = transform.position.x + (moveValue.x * (Time.deltaTime * speed));
         transform.position = new Vector3(posX, transform.position.y, transform.position.z);
         //cam.position = new Vector3(posX, cam.position.y, cam.position.z);
+
+        if (moveValue.x < 0)
+        {
+            //Running Left
+            anim.Play("run");
+            bunny.flipX = false;
+        }
+        else if (moveValue.x > 0)
+        {
+            //Running Right
+            anim.Play("run");
+            bunny.flipX = true;
+        }
+        else
+        {
+            //anim.Play("idle");
+        }
+
+
         if (jumpAction.IsPressed() == true && canJump == true)
         {
             Debug.Log("Jumping");
             jump = true;
+            anim.Play("jump");
         }
 
         if (transform.position.y < -12)
@@ -44,6 +67,8 @@ public class MovePlayer : MonoBehaviour
             //after x amount of times game over
             //game over
         }
+
+        
     }
 
     void FixedUpdate()
@@ -57,17 +82,22 @@ public class MovePlayer : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
+
         Debug.Log(col.gameObject.tag);
-        if (col.gameObject.tag == "Floor") {
+        if (col.gameObject.tag == "Floor")
+        {
             canJump = true;
+            anim.Play("idle");
         }
     }
 
     void OnCollisionExit(Collision col)
     {
         Debug.Log(col.gameObject.tag);
-        if (col.gameObject.tag == "Floor") {
+        if (col.gameObject.tag == "Floor")
+        {
             canJump = false;
+            anim.Play("jump");
         }
     }
 }

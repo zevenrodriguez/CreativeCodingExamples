@@ -703,6 +703,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovePlayer
   forceAmount: 150
   speed: 2
+  anim: {fileID: 1655756501}
+  bunny: {fileID: 1655756502}
 --- !u!1001 &1524034880
 PrefabInstance:
   m_ObjectHideFlags: 0
