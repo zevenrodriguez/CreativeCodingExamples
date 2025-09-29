@@ -19,6 +19,8 @@ public class MovePlayer : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] SpriteRenderer bunny;
 
+    float prevPosY = 0.0f;
+
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -58,7 +60,7 @@ public class MovePlayer : MonoBehaviour
         {
             Debug.Log("Jumping");
             jump = true;
-            anim.Play("jump");
+            //anim.Play("jump");
         }
 
         if (transform.position.y < -12)
@@ -67,6 +69,23 @@ public class MovePlayer : MonoBehaviour
             //after x amount of times game over
             //game over
         }
+
+
+        if (transform.position.y > prevPosY)
+        {
+            prevPosY = transform.position.y;
+            Debug.Log("going up");
+            anim.SetBool("falling", false);
+        }
+
+        if (transform.position.y < prevPosY)
+        {
+            prevPosY = transform.position.y;
+            Debug.Log("falling");
+            anim.SetBool("falling", true);
+        }
+
+
 
         
     }
