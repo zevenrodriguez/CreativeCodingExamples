@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Floor
+  - good
+  - bad
   layers:
   - Default
   - TransparentFX
