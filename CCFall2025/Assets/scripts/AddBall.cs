@@ -11,7 +11,6 @@ public class AddBall : MonoBehaviour
 
     [SerializeField] Camera cam;
 
-    InputAction lookAction;
     void Start()
     {
         // ballPosition.x = Random.Range(-5.0f, 5.0f);
@@ -20,7 +19,6 @@ public class AddBall : MonoBehaviour
         // Instantiate(ball,ballPosition,Quaternion.identity);
         //BallAdd();
         StartCoroutine("CreateBall", 3.0f);
-        lookAction = InputSystem.actions.FindAction("Look");
     }
 
     // Update is called once per frame
@@ -29,9 +27,20 @@ public class AddBall : MonoBehaviour
         float mouseX = Mouse.current.position.x.ReadValue();
         float mouseY = Mouse.current.position.y.ReadValue();
         
-        Vector3 test = new Vector3(mouseX,mouseY,0.0f);
-        Ray cammouseray = cam.ScreenPointToRay(test);
-        Debug.DrawRay(cammouseray.origin, cammouseray.direction * 10, Color.yellow);
+        Vector3 mousePosition = new Vector3(mouseX,mouseY,0.0f);
+        Ray camMouseRay = cam.ScreenPointToRay(mousePosition);
+        Debug.DrawRay(camMouseRay.origin, camMouseRay.direction * 10, Color.yellow);
+        if (Physics.Raycast(camMouseRay, out RaycastHit hit))
+        {
+            Debug.Log(hit.collider.gameObject.name);
+            //hit.transform.GetComponent<Renderer>().material.color = Color.red;
+            if (hit.collider.gameObject.tag == "ball" && Mouse.current.leftButton.wasPressedThisFrame == true)
+            {
+              Destroy(hit.collider.gameObject);  
+            }
+            
+        }
+
 
     }
 
