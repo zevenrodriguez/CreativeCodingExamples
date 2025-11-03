@@ -1,0 +1,1 @@
+{"settings":[{"name":"color", "value":"red"},{"name":"playername", "value":"zeven"}]}
