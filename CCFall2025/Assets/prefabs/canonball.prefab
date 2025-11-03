@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1086395310718156424}
   - component: {fileID: 2252282649911493938}
   - component: {fileID: 5209765000855404680}
+  - component: {fileID: -4424460498881928869}
   m_Layer: 0
   m_Name: canonball
   m_TagString: Untagged
@@ -139,3 +140,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4424460498881928869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5110418291157011732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08fe46cab79c9fe4ba3d7fdbfffc1fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyBall
+  raycastDistance: 1
+  splashVFX: {fileID: 6491929768540081314, guid: 0cad9299ab7f545409b88221c1f306a5, type: 3}
